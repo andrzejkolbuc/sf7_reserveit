@@ -5,9 +5,7 @@ Conference rooms are stored in the database, and notifications about new reserva
 
 All custom code are provided in Symfony bundle and Next.js app.
 
-Symfony is used as REST API to manage resources, while Next.js is used to provide a user-friendly interface based on calendar view for creating and managing reservations.
-All operations (create, read, update, delete) are handled through the API, and the validation of the data is done on the backend.
-Frontend is built using Next.js, providing a modern and responsive user interface based on calendar view to manage reservations.
+#todo frontend 
 
 ## Features
 
@@ -73,7 +71,7 @@ The application is delivered as Docker containers, allowing easy installation an
    docker-compose up -d
    ```
 3. The application should be accessible at:
-   - Backend: `http://localhost:8000`
+   - Backend: `http://localhost:8001`
    - Frontend: `http://localhost:3000`
 
 ## Authors
