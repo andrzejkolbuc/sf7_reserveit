@@ -1,0 +1,14 @@
+App\ReserveItBundle\Entity\Reservation:
+    attributes:
+        id:
+            groups: ['reservation:read']
+        room:
+            groups: ['reservation:read', 'reservation:write']
+        reservedBy:
+            groups: ['reservation:read', 'reservation:write']
+        date:
+            groups: ['reservation:read', 'reservation:write']
+        startTime:
+            groups: ['reservation:read', 'reservation:write']
+        endTime:
+            groups: ['reservation:read', 'reservation:write']

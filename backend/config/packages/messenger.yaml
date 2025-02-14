@@ -1,0 +1,31 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+            notifications:
+                dsn: '%env(RABBITMQ_URL)%'
+                options:
+                    exchange:
+                        name: notifications
+                        type: direct
+                    queues:
+                        notifications: ~
+            
+            cache:
+                dsn: '%env(REDIS_URL)%'
+                options:
+                    stream: 'reservations'
+            
+            failed:
+                dsn: 'doctrine://default?queue_name=failed'
+
+        routing:
+            App\ReserveItBundle\Message\NewReservationMessage: notifications
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                notifications: 'in-memory://'
+                cache: 'in-memory://'

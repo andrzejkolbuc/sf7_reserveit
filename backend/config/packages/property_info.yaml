@@ -1,0 +1,6 @@
+services:
+    # Disable PHPStan extractor
+    symfony.property_info.phpstan_extractor:
+        class: Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor
+        public: false
+        tags: []  # Remove the extractor tag

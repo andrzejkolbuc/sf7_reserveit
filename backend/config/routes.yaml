@@ -1,0 +1,8 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+reserveit_bundle:
+    resource: ../src/ReserveItBundle/Controller/
+    type: attribute
+    prefix: /api

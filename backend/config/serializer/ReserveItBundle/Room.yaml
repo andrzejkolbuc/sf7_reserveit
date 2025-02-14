@@ -1,0 +1,8 @@
+App\ReserveItBundle\Entity\Room:
+    attributes:
+        id:
+            groups: ['room:read']
+        name:
+            groups: ['room:read', 'room:write']
+        reservations:
+            groups: ['room:read']
