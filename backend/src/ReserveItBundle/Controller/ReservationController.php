@@ -3,6 +3,7 @@
 namespace App\ReserveItBundle\Controller;
 
 use App\ReserveItBundle\Entity\Reservation;
+use App\ReserveItBundle\Event\ReservationCreatedEvent;
 use App\ReserveItBundle\Repository\ReservationRepository;
 use App\ReserveItBundle\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,15 +12,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route('/reservations')]
+#[Route('/api/reservations')]
 class ReservationController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
         private ReservationRepository $reservationRepository,
         private RoomRepository $roomRepository,
-        private ValidatorInterface $validator
+        private ValidatorInterface $validator,
+        private EventDispatcherInterface $eventDispatcher
     ) {
     }
 
@@ -59,12 +62,16 @@ class ReservationController extends AbstractController
             $reservation->getEndTime()
         );
 
-        if ($overlapping) {
+        if (count($overlapping) > 0) {
             return $this->json(['error' => 'Room is already reserved for this time period'], 409);
         }
 
         $this->entityManager->persist($reservation);
         $this->entityManager->flush();
+
+        // Dispatch the reservation created event
+        $event = new ReservationCreatedEvent($reservation);
+        $this->eventDispatcher->dispatch($event, ReservationCreatedEvent::NAME);
 
         return $this->json(['data' => $reservation], 201, context: ['groups' => ['reservation:read']]);
     }
@@ -124,7 +131,7 @@ class ReservationController extends AbstractController
             $reservation->getId()
         );
 
-        if ($overlapping) {
+        if (count($overlapping) > 0) {
             return $this->json(['error' => 'Room is already reserved for this time period'], 409);
         }
 
