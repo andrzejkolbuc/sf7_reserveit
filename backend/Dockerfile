@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     git
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql zip \
+RUN docker-php-ext-install pdo pdo_pgsql zip bcmath \
     && pecl install redis amqp \
     && docker-php-ext-enable redis amqp
 

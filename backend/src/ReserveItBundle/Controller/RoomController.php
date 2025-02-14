@@ -25,7 +25,17 @@ class RoomController extends AbstractController
     public function list(): JsonResponse
     {
         $rooms = $this->roomRepository->findAll();
-        return $this->json(['data' => $rooms], context: ['groups' => ['room:read']]);
+        return $this->json(
+            ['data' => array_map(function(Room $room) {
+                return [
+                    'id' => $room->getId(),
+                    'name' => $room->getName(),
+                    'capacity' => $room->getCapacity(),
+                    'description' => $room->getDescription(),
+                    'activeReservations' => $room->getActiveReservations()
+                ];
+            }, $rooms)]
+        );
     }
 
     #[Route('', name: 'room_create', methods: ['POST'])]
@@ -57,7 +67,15 @@ class RoomController extends AbstractController
             return $this->json(['error' => 'Room not found'], 404);
         }
 
-        return $this->json(['data' => $room], context: ['groups' => ['room:read']]);
+        return $this->json([
+            'data' => [
+                'id' => $room->getId(),
+                'name' => $room->getName(),
+                'capacity' => $room->getCapacity(),
+                'description' => $room->getDescription(),
+                'activeReservations' => $room->getActiveReservations()
+            ]
+        ]);
     }
 
     #[Route('/{id}', name: 'room_update', methods: ['PUT'])]

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route('/api/reservations')]
+#[Route('/reservations')]
 class ReservationController extends AbstractController
 {
     public function __construct(
@@ -62,7 +62,7 @@ class ReservationController extends AbstractController
             $reservation->getEndTime()
         );
 
-        if (count($overlapping) > 0) {
+        if ($overlapping !== null) {
             return $this->json(['error' => 'Room is already reserved for this time period'], 409);
         }
 
@@ -131,7 +131,7 @@ class ReservationController extends AbstractController
             $reservation->getId()
         );
 
-        if (count($overlapping) > 0) {
+        if ($overlapping !== null) {
             return $this->json(['error' => 'Room is already reserved for this time period'], 409);
         }
 

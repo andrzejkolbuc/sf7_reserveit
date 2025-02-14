@@ -65,7 +65,7 @@ The application is delivered as Docker containers, allowing easy installation an
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/andrzejkolbuc/reserveit.git
+   git clone https://github.com/andrzejkolbuc/sf7_reserveit.git
    cd reserveit
    ```
 2. Start the application using Docker Compose:
@@ -80,6 +80,6 @@ The application is delivered as Docker containers, allowing easy installation an
 
 Andrzej Kołbuc (kolbucandrzej@gmail.com)
 
-https://github.com/andrzejkolbuc/reserveit.git
+https://github.com/andrzejkolbuc/sf7_reserveit.git
 
 All rights reserved.

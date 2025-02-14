@@ -1,0 +1,3 @@
+doctrine:
+    dbal:
+        dbname: 'reserve_it_test'

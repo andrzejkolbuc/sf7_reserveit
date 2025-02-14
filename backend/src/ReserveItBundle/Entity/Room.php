@@ -109,4 +109,22 @@ class Room
 
         return $this;
     }
+
+    /**
+     * @return array<array>
+     * @Groups({"room:read"})
+     */
+    public function getActiveReservations(): array
+    {
+        $now = new \DateTime();
+        return $this->reservations
+            ->filter(fn(Reservation $reservation) => $reservation->getEndTime() > $now)
+            ->map(fn(Reservation $reservation) => [
+                'id' => $reservation->getId(),
+                'startTime' => $reservation->getStartTime(),
+                'endTime' => $reservation->getEndTime(),
+                'title' => $reservation->getTitle()
+            ])
+            ->toArray();
+    }
 }

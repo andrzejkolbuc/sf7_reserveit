@@ -224,6 +224,17 @@ DELETE /reservations/{id}
 
 **Response**: 204 No Content
 
+## Required PHP Extensions
+
+The application requires the following PHP extensions:
+- pdo_pgsql (for PostgreSQL database)
+- zip (for Composer package management)
+- bcmath (for RabbitMQ message handling)
+- amqp (for RabbitMQ integration)
+- redis (for caching)
+
+These extensions are automatically installed when using the provided Docker configuration.
+
 ## Error Responses
 
 The API uses standard HTTP status codes and returns error messages in a consistent format:
